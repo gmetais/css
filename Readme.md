@@ -23,6 +23,7 @@ Accepts a CSS string and returns an AST `object`.
 `options`:
 
 - silent: silently fail on parse errors.
+- listErrors: silently fail on parse error AND list the errors in the AST object.
 - source: the path to the file containing `css`. Makes errors and source
   maps more helpful, by letting them know where code comes from.
 

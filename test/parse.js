@@ -52,6 +52,23 @@ describe('parse(str)', function() {
     }).not.throw();
   });
 
+  it('should not throw with listErrors', function() {
+    should(function() {
+      parse('foo { color= red; } bar { color: blue; } baz:bar {} boo { display: none}', { listErrors: true });
+    }).not.throw();
+  });
+
+  it('should list the parsing errors and continue parsing', function() {
+    var result = parse('foo { color= red; } bar { color: blue; } baz {}} boo { display: none}', { listErrors: true });
+
+    var rules = result.stylesheet.rules;
+    rules.length.should.be.above(2);
+
+    var errors = result.stylesheet.parsingErrors;
+    errors.length.should.equal(2);
+
+  });
+
   it('should set parent property', function() {
     var result = parse(
       'thing { test: value; }\n' +
